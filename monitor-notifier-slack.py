@@ -13,7 +13,6 @@ credentials = pika.PlainCredentials(RABBIT_MQ_USER, RABBIT_MQ_PWD)
 connection = pika.BlockingConnection(pika.ConnectionParameters(
                RABBIT_MQ_SERVER, credentials = credentials))
 channel = connection.channel()
-# channel.queue_declare(queue='slack')
 
 def callback(ch, method, properties, body):
     payload = {}
