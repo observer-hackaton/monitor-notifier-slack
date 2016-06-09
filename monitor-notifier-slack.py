@@ -4,9 +4,10 @@ import json
 import requests
 
 SLACK_WEBHOOK_URL = os.environ["SLACK_WEBHOOK_URL"]
+RABBIT_MQ_SERVER = os.environ["RABBIT_MQ_SERVER"]
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-               'localhost'))
+               RABBIT_MQ_SERVER))
 channel = connection.channel()
 channel.queue_declare(queue='slack')
 
