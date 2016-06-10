@@ -16,8 +16,11 @@ channel = connection.channel()
 
 def callback(ch, method, properties, body):
     payload = {}
-    payload["text"] = body
     req = json.loads(body)
+    check_type = req["monitor"]["result"]["check"]["type"]
+    host = json.loads(req["monitor"]["result"]["check"]["arguments"])["host"]
+    time = req["monitor"]["result"]["timestamp"]
+    payload["text"] = check_type + " check failed for " + host + " at " + time
     webhook_url = json.loads(req["monitor"]["notifier"]["arguments"])["webhook_url"]
     r = requests.post(webhook_url, data = json.dumps(payload))
 
